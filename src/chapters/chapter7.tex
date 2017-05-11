@@ -1,26 +1,18 @@
 
 Multivariable calculus has a long history with many refinements over the years.
-Every once in a while, a mathematician will notice a connection
-that wasn't explicit before.  You may have noticed that many of the
-definitions we used were not particular to any specific dimension, but the problems
-we solved were usually in $\R^2$ and $\R^3$.  Sometimes we relied
-on the cross product, which requires us to
-work in $\R^3$.  
-Subjects like \emph{General Relativity} study
-calculus in $\R^4$ (or higher dimensions), but how, for example,
-would we compute a surface integral in $\R^4$?  We would need
-to find a volume form/surface element without the use of the cross product in a dimension
-where our geometric intuition is diminished, to say the least.
+Every once in a while, a mathematician will notice something new---a connection
+between various concepts in mathematics.  You may have noticed that much
+of what we have done was not particular to any specific dimension, but the problems
+we solved were usually in $\R^2$ and $\R^3$.  The theoretical framework
+for work in $\R^4$ (like is often required for relativity) is set, but how
+would we actually compute a surface integral in $\R^4$?  We would need
+to find the volume form/surface element without the use of the cross product.
 
 \emph{Differential forms}\index{differential forms} are one solution to this issue.
-They recast many of the fundamental ideas---gradients, curl, divergence,
-line integrals, surface integrals, etc.---in a unified framework that is consistent
+They recast many of the fundamental ideas, gradients, curl, divergence,
+line integrals, surface integrals, etc., in a unified framework that works
 regardless of dimension and \emph{regardless of coordinate system}.
-Because of their abstract foundation and newness\footnote{ 
-The foundation for differential forms was laid out Hermann Grassmann
-in 1847, and it wasn't until Albert Einstein needed a new kind
-of mathematics to describe relativity that differential forms
-started gaining in popularity.}, differential forms they are not typically encountered in a
+Because of their abstract foundation, they are not typically encountered in a
 first course on multivariable calculus, but that has more to do with culture
 than anything else.
 
@@ -47,12 +39,12 @@ abstract idea of a \emph{vector}\index{vector space}.
 \end{definition}
 
 These properties should look familiar from Section \ref{SECVECTORPROPS}, and indeed
-$\R^n$ is a vector space.  However there are many seemingly non-geometric
+$\R^n$ is a real vector space.  However there are many seemingly non-geometric
 sets that are also vector spaces.
 
 \begin{example}
 	Let $V=\Set{\text{functions from }\R\text{ to }\R}$ equipped with
-	pointwise addition and scalar multiplication.  Then, $V$ is a vector space.
+	pointwise addition and scalar multiplication.  Then $V$ is a vector space.
 
 	We won't prove every property in detail, but if we pick $f,g\in V$,
 	we need the quantities $f+g$ and $\alpha f$ to make sense and to also
@@ -65,24 +57,24 @@ sets that are also vector spaces.
 	Thus, $V$ satisfies the closure property.  The rest of the properties
 	follow via similar arguments.
 \end{example}
+
 Recall that if $\vec v_1,\ldots, \vec v_n\in V$ are vectors, then 
 $\vec w=\alpha_1\vec v_1+\cdots +\alpha_n\vec v_n$ is a 
 \emph{linear combination}\index{linear combination} of the vectors $\vec v_1,\ldots \vec v_n$.
 Another way to think of a vector space is as a set on which linear combinations
 make sense.
 
-\bigskip
 Now that we have abstract ``vectors'' (elements of a vector space), let's
 get abstract lines and planes.  These objects can be defined using
 \emph{linear functions}\index{linear transformation} which are equivalently
 called \emph{linear transformations}\footnote{ The words \emph{function},
 \emph{transformation}, and \emph{mapping} are synonymous in math.  We like
-to mix it up some times.}.
+to mix it up sometimes.}.
 
 \begin{definition}[Linear]
 	Let $V$ and $W$ be vector spaces and let
 	$T:V\to W$ be a function.  $T$ is called \emph{linear}
-	if for all $\vec u,\vec v\in V$ and all scalars $\alpha$,
+	if for all $\vec u,v\in V$ and all scalars $\alpha$,
 	\[
 		T(\vec u+\vec v) = T(\vec u)+T(\vec v)\qquad\text{and}\qquad
 		T(\alpha \vec v) = \alpha T(\vec v).
@@ -95,7 +87,7 @@ with parentheses.
 
 We have already encountered many linear functions.  For example, 
 consider $f:\R^3\to\R$ where
-$f(\vec v) = \xhat\cdot \vec v$.  Based on the properties of the dot product,
+$f(\vec v) = \xhat\cdot \vec v$ for some fixed $\xhat \in \R^3$.  Based on the properties of the dot product,
 \[
 	f(\vec u+\vec v) = \xhat\cdot (\vec u+\vec v)=
 	\xhat\cdot \vec u+\xhat \cdot \vec v = f(\vec u)+f(\vec v)
@@ -125,6 +117,8 @@ Linear functions help us define lines, planes, etc. via their \emph{kernel}\inde
 		\Ker(T) = \Set{\vec v\in V\given T(\vec v) = \vec 0}.
 	\]
 \end{definition}
+%Re the wording the above defn, wait do want to consider the kernel of 
+%nonlinear functions??
 
 Thinking at this level of abstraction can be challenging at first,
 but we've really been working with these ideas for a long time.
@@ -162,11 +156,14 @@ of the related \emph{affine functions}\index{affine function}.
 	for all $\vec v$.
 \end{definition}
 
-You may recall previously, in Section \ref{SECAFFINE},
+You may recall that previously, in Section \ref{SECAFFINE},
 we only defined what it means for a function $f:\R^n\to \R$
 to be affine.
 We now have a fully general
 definition!
+%Ah OK, so you also talk about kernels of affine maps. My sense is that this
+%is a tad unusual i.e. most people would just talk about solutions to Ax=b
+%instead of the kernel of A-b.
 
 \begin{exercise}
 	Write the plane with normal vector $\vec n=(1,2,3)$ and which
@@ -176,18 +173,17 @@ definition!
 
 \subsection{Covectors}
 
-We will now develop
-a set of tools to \emph{measure} geometric objects.  The first
-property we will attempt to measure is displacement.  Using
-displacement,
+
+Now that we have formalized standard geometric objects, we will develop
+a set of tools to \emph{measure} those objects.  The first
+property we will attempt to measure is displacement.  From displacement,
 we will be able to measure area as ``displacement in two directions''
 and volume as ``displacement in three directions.''
 
-Displacement is measures with objects called \emph{covectors}\index{covector}.
+Displacement is measured with objects called \emph{covectors}\index{covector}.
 In other contexts, these objects are also known as 
 \emph{linear functionals}\index{linear functional} or \emph{dual vectors}\index{dual vector}.
-We will typically write covectors in a \textbf{bold} font to  distinguish 
-them from vectors.
+We will typically write covectors in a bold font to distinguish them from vectors.
 
 \begin{definition}[Covector]
 	Given a vector space $V$, a \emph{covector} on the space $V$
@@ -199,25 +195,24 @@ This definition is very abstract, but again, we've encountered covectors
 before!  Let $\bm{\alpha}:\R^3\to\R$ be defined by $\bm{\alpha}(\vec v) =\xhat \cdot \vec v$.
 We already know that $\bm{\alpha}$ is linear and that it outputs
 real numbers.  Therefore it is a covector.  However, $\bm \alpha$ also has
-geometric meaning.  It $\bm\alpha(\vec v)$ outputs the $x$-coordinate
-of $\vec v$.  We could similarly come up with covectors that output the $y$ or $z$ coordinates
-of their input.
+geometric meaning.  The output $\bm\alpha(\vec v)$ is the $x$-coordinate
+of $\vec v$.  We could similarly think of covectors that, when given
+a vector, output its $y$ or $z$ coordinates.
 
 Any function $\bm f:\R^n\to \R$ defined by $\bm f(\vec v) = \vec r\cdot \vec v$
-for some fixed $\vec r$ is a covector.  Further, we can interpret
-$\bm f$ to have geometric meaning.  The quantity $\bm f(\vec v)$ is how
-much $\vec v$ points in the direction $\vec r$, scaled by $\norm{\vec r}$.  
-In other words, $\bm f(\vec v)$
+for some fixed $\vec r$ is a covector.  Further, we can give
+$\bm f$ a geometric meaning.  The quantity $\bm f(\vec v)$ is how
+much $\vec v$ points in the direction $\vec r$.  In other words, $\bm f(\vec v)$
 is the ``$\vec r$ component'' of $\vec v$ (is anyone else thinking
-about projections?) which is ``the length of $\vec v$ measured by a ruler
-with ticks determined by $\vec r$.''
+about projections?).
+%Does the issue of how the length of r comes into play deserve attention here?
 
 A theorem from linear algebra shows us that this type of covector
 is all there is (in $\R^n$, at least).
 
 \begin{theorem}
 	Let $\bm\alpha:\R^n\to \R$ be a covector for $\R^n$.  Then,
-	there exists a $\vec a\in \R^n$ such that
+	there exists an $\vec a\in \R^n$ such that
 	\[
 		\bm\alpha (\vec v) = \vec a\cdot \vec v
 	\]
@@ -225,13 +220,13 @@ is all there is (in $\R^n$, at least).
 \end{theorem}
 
 
-Now we know all covectors for $\R^n$ have a geometric meaning
-as measuring some component of an input vector.  The following
+Now we know all covectors for $\R^n$ have a geometric meaning. They measure 
+some component of an input vector.  The following
 theorem says that the term ``vector'' in co\emph{vector} is justified.
 
 \begin{theorem}
 	If $V$ is a vector space, then $V^*$, the set of all
-	covectors for $V$, is also a vector space.
+	covectors for $V$ is also a vector space.
 \end{theorem}
 \begin{proof}
 	XXX Finish
@@ -246,14 +241,14 @@ says $V\subseteq V^{**}$, if you interpret ``subset'' in the right sense. }.
 
 It is, however, worth our time to consider $(\R^n)^*$.  Recall that
 in $\R^3$ we have special vectors $\xhat$, $\yhat$, and $\zhat$,
-called the standard basis for $\R^3$,
+called the standard basis for $R^3$,
 and all other vectors can be written as a linear combination of these.
-Higher dimensions also have standard bases, as do the corresponding
-spaces of covectors.
+Higher dimensions also have the idea of a standard basis. We also have 
+standard bases for sets of covectors.
 
 \begin{definition}[Standard Basis]
 	The \emph{standard basis} for $\R^n$ is notated 
-	$\vec e_1,\vec e_2,\ldots,\vec e_n$. It satisfies that 
+	by $\vec e_1,\vec e_2,\ldots,\vec e_n$ and satisfies that 
 	every vector in $\R^n$ can be written as a linear combination of
 	$\vec e_1,\vec e_2,\ldots,\vec e_n$ and that
 	\[
@@ -264,7 +259,7 @@ spaces of covectors.
 	\]
 
 	The standard basis for $(\R^n)^*$ is notated
-	$\bm e^1,\bm e^2,\ldots,\bm e^n$. It satisfies that
+	$\bm e^1,\bm e^2,\ldots,\bm e^n$ and satisfies that
 	every covector for $\R^n$ can be written as a linear combination of
 	$\bm e^1,\bm e^2,\ldots,\bm e^n$ and that
 	\[
@@ -289,22 +284,22 @@ For example, let $\bm \alpha = \bm e^1+2\bm e^3$.  We can compute
 	+2\bm e^3\mat{a\\b\\c} = a+2c = \mat{1\\0\\2}\cdot \mat{a\\b\\c},
 \]
 and so we see that $\bm\alpha$ is given by taking the dot product with
-the vector $\mat{1\\0\\2}$.  Of course, we could write $\vec e_1+2\vec e_3$
+the vector $\mat{1\\0\\2}$.  Of course, we could write $\vec e_1+2\vec e_2$
 instead of $\mat{1\\0\\2}$ and $a\vec e_1+b\vec e_2+c\vec e_3$ instead of 
 $\mat{a\\b\\c}$.  In doing so, we would be analyzing vectors in
-a \emph{coordinate free} manner.  That is, we would never need to talk about
+a \emph{coordinate free} manner.  That is, we never need to talk about
 the coordinates of a vector in order to do a computation.  One of the selling points
 of differential forms is that they allow you to do multivariable calculus
 in a coordinate free way.
 
 Stepping back for a moment, the machinery we've developed is almost comically
-tautological.  Let $\vec v\in \R^n$ and let $\bm \alpha$ be a covector for $\R^n$.  By 
+tautological.  Let $\vec v\in \R^n$ and let $\bm \alpha$ be a covector.  By 
 definition,
 \begin{align*}
 	\vec v &= a_1\vec e_1+\cdots +a_n\vec e_n\\
-	\bm \alpha &= b_1\bm e^1+\cdots b_n\bm e^n.
+	\bm \alpha &= b_1\bm e^1+\cdots b_n\bm e^n,
 \end{align*}
-It follows that
+and it follows that
 \[
 	\bm \alpha(\vec v) = 
 	(b_1\bm e^1+\cdots b_n\bm e^n)(a_1\vec e_1+\cdots +a_n\vec e_n)
@@ -334,13 +329,15 @@ XXX Finish
 
 \section{1-forms and Line Integrals}
 
-Recall that a function $f:\R^n\to\R^n$ is called a
+%Of course sometimes a map f:R^n-->R^n should not be thought of as a
+%vector field, for instance when we have a coordinate change.
+Recall that a function $f:\R^n\to\R^n$ was called a
 vector field because to each point in $\R^n$ it assigns a
 vector in $\R^n$.  A 1-form is a type of \emph{differential 
 form}\index{differential form} that is analogous to a vector field
 except that instead of assigning to each point a vector,
 it assigns to each point a \emph{covector}.  We will also write
-1-forms using a \textbf{bold} font.
+1-forms using a bold font.
 
 \begin{definition}[1-form]
 	A \emph{1-form}\index{1-form} on the space $\R^n$ is a function
@@ -352,10 +349,8 @@ what it means to differentiate a function whose codomain consists of covectors.
 The quick and dirty answer is, treat covectors as vectors and use
 the definition of differentiability for a vector field.}.
 
-1-forms output covectors which themselves measure vectors.
-Thus in order to get a number from a 1-form, there is a chain
-of function applications.  We will introduce some notation to make this
-tolerable.  If $\bm \alpha$ is a 1-form, then
+Since 1-forms output covectors which themselves measure vectors, it is worth
+introducing some notation.  If $\bm \alpha$ is a 1-form, then
 $\bm \alpha(\vec v)$ is a covector.  If we wish to apply this
 covector, $\bm\alpha(\vec v)$,
 to measure the vector $\vec w$, we write $\Big[\bm\alpha(\vec v)\Big](\vec w)$.
@@ -365,13 +360,15 @@ We'll be doing this a lot, so we have the alternative notation
 \]
 
 
-As we've seen, covectors are used to measure oriented line
-segments (vectors).  1-forms measure \emph{oriented curves}.  We'll explore this by
+As we've seen, covectors are used to measure vectors, and 
+vectors themselves come from displacements.  1-forms are a way
+to measure \emph{oriented curves}.  We'll explore this by
 first considering some special 1-forms on $\R^3$.
 
+%I think the bold d looks really weird.
 \begin{definition}[Standard Basis for 1-forms]
 	The
-	\emph{standard basis for 1-forms on $\R^3$} are the 1-forms
+	\emph{standard basis for 1-forms} are the 1-forms
 	$\dd x$, $\dd y$, and $\dd z$ defined by
 	\[
 		\dd x(\vec v) = \bm e^1\qquad \dd y(\vec v)=\bm e^2\qquad
@@ -413,13 +410,14 @@ XXX Figure including $\dd x(r)$
 Now, $\dd x\circ \vec r = \bm e^1$ is the constant covector that measures
 the $x$ displacement of a vector and so $\dd x \formarg{\vec r(t)}{\vec r'(t)}
 =\bm e^1\big(\vec r'(t)\big)$
-is the $x$ displacement of $\vec r'(t)$.   In other words,
+is the $x$ displacement of the tangent vector to $\mathcal C$ coming
+from the parameterization $\vec r$ at the point $\vec r(t)$.   In other words,
 \[
 	\dd x\formarg{\vec r(t)}{\vec r'(t)}=\bm e^1\big(\vec r'(t)\big) = r_x'(t).
 \]
-What we're after is  $b_x-a_x$, the \emph{total} $x$ displacement along the curve $\mathcal C$.
-We  can get this quantity from the fundamental theorem
-of calculus.  After some reverse engineering, we see
+What we're after is the \emph{total} $x$ displacement along the curve $\mathcal C$.
+That is $b_x-a_x$.  But, we can get this quantity from the fundamental theorem
+of calculus!  After some reverse engineering, we see
 \[
 	b_x-a_x = \int_0^1 r_x'(t)\, \d t 
 	= \int_0^1 \dd x\formarg{\vec r(t)}{\vec r'(t)}\,\d t.
@@ -455,8 +453,9 @@ With this definition, we have a powerful notation.  For an oriented curve $\math
 is the $x$ displacement from the start of $\mathcal C$ to the end of $\mathcal C$.
 Similarly, $\int_{\mathcal C}\dd y$ gives the $y$ displacement and $\int_{\mathcal C}\dd z$
 gives the $z$ displacement.
-Further, the integral notation for 1-forms
-behaves like a classical integral with respect to linear combinations.
+
+There are many nice properties of the integral notation applied to 1-forms.
+For example, it behaves like a classical integral with respect to linear combinations.
 If $\bm\alpha$ and $\bm\beta$ are 1-forms and $t$ is a scalar, then
 \[
 	\int_{\mathcal C}(\bm \alpha + t\bm\beta) = \int_{\mathcal C} \bm\alpha 
@@ -472,14 +471,14 @@ If $\bm\alpha$ and $\bm\beta$ are 1-forms and $t$ is a scalar, then
 \subsection{Non-constant 1-forms}
 
 Let us seek the comfort of a one dimensional space as we explore non-constant 1-forms.
-In $\R^1$, we only have one standard basis 1-form: $\dd x$.
+In $\R^1$ we only have one standard basis 1-form: $\dd x$.
 Let $f:\R^1\to\R$ be a scalar-valued function.  We will interpret
 $\R^1$ as a vector space rather than a set of scalars. Now, define
 \[
 	f\dd x (\vec v) = f(\vec v)\dd x(\vec v) = f(\vec v)\bm e^1.
 \]
 That is, $f\dd x$, when given a point, returns a scaled version of $\bm e^1$,
-which will in turn measure a scaled version of the $x$ coordinate of
+which will in turn measure a scaled version of the $x$ displacement of
 a vector.  Let $\mathcal C=[a,b]$ be the oriented interval starting
 at $a$ and ending at $b$.  $\mathcal C$ is naturally parameterized
 by the function $\vec r:[a,b]\to[a,b]$ defined by $\vec r(t) = t$.
@@ -495,7 +494,7 @@ This shows that
 $\int_{\mathcal C} f\dd x$ is the usual integral of $f$ on the interval $[a,b]$.
 
 \bigskip
-Moving to $\R^2$, let $f_x:\R^2\to\R$ and $f_y:\R^2\to\R$
+Let's move now to $\R^2$.  Let $f_x:\R^2\to\R$ and $f_y:\R^2\to\R$
 and consider the 1-form $\bm\alpha = f_x\dd x+f_y\dd y$.  Again, let
 $\mathcal C$ be an oriented curve starting at $\vec a$, ending at $\vec b$,
 and parameterized by $\vec r:[0,1]\to\mathcal C$  where
@@ -537,13 +536,13 @@ any vector you can think of as a line segment with a start and an end.
 When the covector $\bm\alpha=a\bm e^1+b\bm e^2+c\bm e^3$ is applied to 
 a vector $\vec v$, it measures the ``$(a,b,c)$ component'' of $\vec v$.
 In other words, it measures how long $\vec v$ appears to be from the perspective
-of the vector $(a,b,c)$.
+of the vector $(a,b,c)$.  That is, $\bm\alpha(\vec v) = (a,b,c)\cdot \vec v$.
 
 We can invent a similar object that measures oriented parallelograms.
 Any pair of vectors $(\vec v,\vec w)$ can be viewed as forming an oriented
 parallelogram $\mathcal P_{\vec v,\vec w}$.  If $(\vec v,\vec w)$ come in a
 right-handed order, we say $\mathcal P_{\vec v,\vec w}$ has a positive
-orientation.  Otherwise, it has a negative orientation.
+orientation.  Otherwise it has a negative orientation.
 A function
 that takes in a pair of vectors and measures the oriented (signed)
 area of the parallelogram they determine is called a 2-covector.
@@ -556,7 +555,7 @@ vectors, then
 	\bm\alpha(\vec v,\vec v) = 0,
 \]
 since the parallelogram $\mathcal P_{\vec v,\vec v}$ is degenerate\footnote{
-This isn't a comment about the parallelogram's moral character; it just has no area.}.  Scaling one of the sides should affect
+It isn't bad; it just has no area.}.  Scaling one of the sides should affect
 the area accordingly:
 \[
 	\bm\alpha(m\vec v,\vec w) = m\alpha(\vec v,\vec w) = \alpha(\vec v,m\vec w).
@@ -611,15 +610,15 @@ Observe,
 and so $\bm\alpha(\vec v, \vec w) = -\bm\alpha(\vec w, \vec v)$.  This property
 is called \emph{alternating}\index{alternating map}.
 
-We've generated a lot of theory. Let's see an actual 2-vector in action.
+We've generated a lot of theory, but let's actually see a 2-vector in action.
 
 \begin{example}
 	\label{EXTWOCOVECTOR}
 	For a pair of vectors $(\vec v,\vec w)$, let $\mathcal P_{\vec v,\vec w}$
 	be the oriented parallelogram with sides $\vec v$ and $\vec w$.
-	Define $\bm\alpha$ to be the function such that $\bm\alpha(\vec v,\vec w)$
+	Let $\bm\alpha$ be the 2-covector so that $\bm\alpha(\vec v,\vec w)$
 	is the oriented area of $\mathcal P_{\vec v,\vec w}$ projected onto the
-	$xy$-plane.  Show that $\bm\alpha$ is a 2-covector.
+	$xy$-plane.
 
 	XXX Figure
 
@@ -672,13 +671,13 @@ be written as $\bm e^1\wedge \bm e^2$.  But, it gets better.
 	of vectors in the set $\Set{\bm e^i\wedge \bm e^j\given i\neq j}$.
 \end{theorem}
 
-In general, it is not true that if $\bm\alpha$ is a 2-covector
+Note that in general, it is not true that if $\bm\alpha$ is a 2-covector
 then $\bm\alpha$ can be written as the wedge product of two covectors\footnote{
 This \emph{does} happen to be true for 2-covectors on $\R^3$, but that's just
 a happy coincidence.}.  
 We really do need to allow linear combinations to get 
 all 2-covectors.  For example, the 2-covector $\bm e^1\wedge\bm e^2+\bm e^3\wedge
-\bm e^4$ for $\R^4$ cannot be written as the wedge product of two covectors.
+\bm e^4$ in $\R^4$ cannot be written as the wedge product of two covectors.
 
 \bigskip
 Exploring the consequences of the definition of the wedge product, 
@@ -698,6 +697,7 @@ And, that it is multi-linear:
 	\bm\alpha\wedge(\bm\gamma+\bm\beta) = \bm\alpha\wedge\bm\gamma + \bm\alpha\wedge\bm\beta.
 \]
 
+Strangely, 2-covectors seem to have all the properties of their inputs.
 
 \subsection{Geometric Interpretation of 2-covectors}
 
@@ -705,7 +705,8 @@ XXX Finish.  Some pictures about projections and oriented areas, again.
 
 \subsection{2-forms}
 
-Now that we have 2-covectors, we can define 2-forms\index{2-form}.
+Now that we have 2-covectors, we can define 2-forms\index{2-form} in a very similar way to
+how we defined 1-forms.
 
 \begin{definition}[2-form]
 	A \emph{2-form} on the space $\R^n$ is a function $\bm\alpha:
@@ -713,7 +714,7 @@ Now that we have 2-covectors, we can define 2-forms\index{2-form}.
 \end{definition}
 
 Just as the wedge product of
-two covectors produces a 2-covector, the wedge
+two covectors produces a 2-covectors, the wedge
 product of two 1-forms produces a 2-form.
 2-forms in $\R^3$ also have a standard basis.
 
@@ -722,13 +723,16 @@ product of two 1-forms produces a 2-form.
 	$\dd x\wedge \dd y$, $\dd y\wedge \dd z$, and $\dd z \wedge \dd x$.
 \end{definition}
 
-Notice the order of $\dd x$, $\dd y$, and $\dd z$.  In particular, the third basis element
+Notice the order that $\dd x$, $\dd y$, and $\dd z$ appear in the standard
+basis for 2-forms on $\R^3$.  In particular, the third basis element
 is $\dd z\wedge \dd x$ and not $\dd x\wedge \dd z$.  This has to do with 
-orientation.  When we use the basis 2-forms to measure area, we'd that either all of
+having a consistent
+orientation.  When we use the basis 2-forms to measure area, we'd like them
+to have the property that either 
 $\dd x\wedge \dd y(\mathcal P), \dd y\wedge \dd z(\mathcal P), \dd z\wedge \dd x(\mathcal P)\geq 0$
-or all of
-$\dd x\wedge \dd y(\mathcal P), \dd y\wedge \dd z(\mathcal P), \dd z\wedge \dd x(\mathcal P)\leq 0$.
-We never want a mix of signs.
+or 
+$\dd x\wedge \dd y(\mathcal P), \dd y\wedge \dd z(\mathcal P), \dd z\wedge \dd x(\mathcal P)\leq 0$,
+but we never want a mix of signs.
 
 We call $\dd x\wedge \dd y$, $\dd y\wedge \dd z$, and $\dd z \wedge \dd x$
 the standard basis of 2-forms for $\R^3$ because any 2-form in $\R^3$ can
@@ -749,14 +753,14 @@ $\dd x\wedge \dd y$, $\dd y\wedge \dd z$, and $\dd z \wedge \dd x$.
 surfaces, and the definition of the integral of a 2-form
 is nearly identical to that of a 1-form---cumbersome notation and all.
 
-Recall, a 2-form inputs a point and outputs a 2-covector.
-In turn, the 2-covector inputs a pairs of vectors and outputs a scalar.  If
+Recall, 2-forms are functions that input pairs of points and output 2-covectors.
+In turn, the 2-covectors input pairs of vectors and output scalars.  If
 $\bm \alpha$ is a 2-form, we will define
 \[
-	\bm\alpha\formarg{\vec x}{\vec v,\vec w}\equiv
-	\Big[\bm\alpha(\vec x)\Big](\vec v,\vec w)
+	\bm\alpha\formarg{\vec x_1,\vec x_2}{\vec v,\vec w}\equiv
+	\Big[\bm\alpha(\vec x_1,\vec x_2)\Big](\vec v,\vec w)
 \]
-for vectors $\vec v,\vec w$ and point $\vec x$.
+for points $\vec x_1,\vec x_2$ and vectors $\vec v,\vec w$.
 
 \begin{definition}[integral of a 2-form]
 	Let $\mathcal S$ be an oriented surface. The integral of
@@ -787,7 +791,7 @@ doesn't depend on your choice of how you parameterize $\mathcal S$.
 	\]
 
 	To convince ourselves that $\vec p$ actually is a parameterization,
-	let's graph some curves $\vec p(t,b)$ where $b$ is held constant and
+	let's graph some curves $\vec p(t,b)$ while $b$ is held constant and
 	$\vec p(a,s)$ where $a$ is held constant.
 
 	XXX Figure of parameterization
@@ -799,7 +803,7 @@ doesn't depend on your choice of how you parameterize $\mathcal S$.
 	\]
 	From the definition of $\dd x\wedge \dd y$,
 	\[
-		\dd x\wedge \dd y\formarg{\vec x}{\vec u,\vec v}
+		\dd x\wedge \dd y\formarg{\vec x,\vec y}{\vec u,\vec v}
 		=\bm e^1\wedge \bm e^2(\vec u,\vec v)
 		= \bm e^1(\vec u)\bm e^2(\vec v) - \bm e^1(\vec v)\bm e^2(\vec u),
 	\]
@@ -842,16 +846,23 @@ is the same as in the term ``2-form.''
 
 The techniques used in Example \ref{EXTWOFORMINT} will work in any dimension
 to integrate a 2-form over any surface, whether situated in the $xy$-plane or not.
-However, it can be hard to come up
-with parameterizations for strange surfaces---especially with rectangular domains.
-Fortunately, by adjusting the bounds of integration, you can all the domain
-of your parameterization to be any reasonable subset of $\R^2$.
+
+Let $\mathcal R$ be a surface in the $xy$-plane.
+The integral $\int_{\mathcal S}\dd x\wedge\dd y$ gives the 
+signed area of $\mathcal R$.  We can compute this integral using the techniques
+from Example \ref{EXTWOFORMINT}, but in general, it's very hard to come up
+with parameterizations for strange surfaces.  If all we wanted to do was find
+the signed area of $\mathcal R$, we could just do a double integral
+with clever bounds of integration.  It turns out that this is the same 
+integrating with respect to identity parameterization on a $\mathcal R$-shaped
+domain instead of a rectangularly-shaped one.  You can integrate 2-forms in this
+way too.
 
 \begin{example}
-	Let $\mathcal R$ be the region below the curve $y=1$ and above the
-	curve $y=x^2$.  Compute $\int_{\mathcal R} \dd x\wedge \dd y$.
+	Let $\mathcal S$ be the region below the curve $y=1$ and above the
+	curve $y=x^2$.  Compute $\int_{\mathcal S} \dd x\wedge \dd y$.
 
-	Let $\vec p:\mathcal R\to\mathcal R$ be the identity parameterization
+	Let $\vec p:\mathcal S\to\mathcal S$ be the identity parameterization
 	given by $\vec p(a,b)=(a,b)$.  Now,
 	\[
 	\frac{\partial \vec p}{\partial x} (a,b) = \mat{1\\ 0}=\xhat \qquad
@@ -859,13 +870,13 @@ of your parameterization to be any reasonable subset of $\R^2$.
 	\]
 	A little computation shows that $\dd x\wedge \dd y\formarg{\vec p(a,b)}{
 	\tfrac{\partial \vec p}{\partial x} (a,b), \tfrac{\partial \vec p}{\partial y} (a,b)}
-	= 1$.  Since we can explicitly define $\mathcal R$ as
+	= 1$.  Since we can explicitly define $\mathcal S$ as
 	\[
-		\mathcal R = \Set{(x,y)\given -1\leq x\leq 1\text{ and }x^2\leq y\leq 1},
+		\mathcal S = \Set{(x,y)\given -1\leq x\leq 1\text{ and }x^2\leq y\leq 1},
 	\]
 	we may write
 	\[
-		\int_{\mathcal R} \dd x\wedge \dd y = \int_{-1}^1 \int_{x^2}^1
+		\int_{\mathcal S} \dd x\wedge \dd y = \int_{-1}^1 \int_{x^2}^1
 		1\,\d s\d t = \tfrac{4}{3}.
 	\]
 \end{example}
@@ -874,11 +885,11 @@ of your parameterization to be any reasonable subset of $\R^2$.
 
 Just like integrating $\dd x$ over a curve $\mathcal C$
 gave the change in $x$-coordinate from the start to the end of $\mathcal C$,
-integrating the 2-form $\dd x\wedge \dd y$ over the surface $\mathcal S$ will
+Integrating the 2-form $\dd x\wedge \dd y$ over the surface $\mathcal S$ will
 give the signed area of $\mathcal S$ projected onto the $xy$-plane.
-The integral of a non-constant 1-form over a curve
-is equivalent to a vector line integral.  Analogously, the integral
-of a non-constant 2-form over a surface turns out
+Further, the integral of a non-constant 1-form $\bm \alpha$ over a curve $\mathcal C$
+was equivalent to a vector line integral.  Analogously, the integral
+of a non-constant 2-form $\bm\beta$ over a surface $\mathcal S$ turns out
 to be a flux integral.
 
 \begin{theorem}
@@ -902,14 +913,14 @@ and the vector $(a,b,c)$.  That is,
 	\dd x&\wedge \dd y\quad\text{ acts like } \quad&&\zhat 
 \end{alignat*}
 at least when thinking about flux integrals.  We will explore this
-connection further when discussing the \emph{Hodge dual}\index{Hodge dual
-operator}.
+connection further when discussing the \emph{Hodge dual}\index{Hodge dual}
+operator.
 
 \section{Higher-order Forms}
 
-We will start by defining $n$-covectors after a minor extension
+We will start by defining $n$-covectors after a minor expansion
 of the laws of area.  A $3$-covector is an object that measures
-volume, a $4$-covector measures four-dimensional volume, etc. and so
+volume, a $4$-covector measures volume in $\R^4$, etc. and so
 an $n$-covector must input $n$ vectors and return a scalar.  Further,
 every pair of those vectors must satisfy the laws of area.  We call this extension
 of the laws of area to collections of $n$ vectors the \emph{laws of volume}\index{laws
@@ -982,17 +993,19 @@ That is,
 -\bm\alpha^1\wedge \cdots \wedge
 		\bm\alpha^{i+1}\wedge \bm\alpha^{i}\wedge \cdots \wedge \bm\alpha^n.
 \]
-In other words, switching adjacent pairs in a wedge product negates the product.  
-By using the alternating
-property of the wedge product, we can rearrange large wedge products.   
-The laws of volume state if the expression $\bm\beta\wedge\bm\beta$
-ever occurs in a wedge product, the wedge product must be zero.
-Therefore, if two $\bm\beta$'s ever occur in a wedge product, the product must be zero\footnote{
-Move the $\bm\beta$'s to the back---if there are two or more you'll see a $\bm\beta\wedge\bm\beta$.}.
+In other words, switching adjacent pairs in a wedge product negates the product---this
+generalizes anti-symmetry for 2-covectors.  By using the alternating
+property of the wedge product, we can rearrange large wedge products.  We
+can now show if the expression $\bm\beta\wedge\bm\beta$
+ever occurs in a wedge product, the wedge product must be zero\footnote{
+Move $\bm\beta\wedge\bm\beta$ to the back of the wedge product.  Eventually
+Eventually you'll end up with $\sum a_i\bm\beta\wedge\bm\beta$ and since
+$\bm\beta\wedge\bm\beta = 0$, the whole sum is zero.}, and, by extension,
+if two $\bm\beta$'s ever occur in a wedge product, the product must be zero.
 
 \subsection{$n$-forms}
-We define $n$-forms and integration of $n$-forms\index{$n$-form}
-analogously to 1-forms and 2-forms.
+We define $n$-forms just like we defined 1-forms and 2-forms.  Further,
+we define integration of $n$-forms.
 
 \begin{definition}[$n$-form]
 	An $n$-form on the space $\R^n$ is a function $\bm\alpha:\R^n
@@ -1011,7 +1024,7 @@ analogously to 1-forms and 2-forms.
 		} \,\d t_n\cdots \d t_1
 	\]
 	where $\vec p:[a_1,b_1]\times\cdots\times[a_n,b_n]\to\mathcal R$
-	is an orientation-preserving parameterization of $\mathcal R$ and
+	is an orientation-preserving parameterization of $\R$ and
 	$\vec t=(t_1,\ldots, t_n)$.
 \end{definition}
 
@@ -1019,8 +1032,8 @@ analogously to 1-forms and 2-forms.
 
 Of particular interest to us are 3-forms.  3-forms measure oriented volume,
 and in three dimensions, there's only one ``direction'' a volume can point.
-This is reflected in the fact that all 3-forms on $\R^n$ are multiples of
-a single element.
+This is reflected in the fact that the standard basis for 3-forms consists of
+one element.
 
 \begin{definition}[Standard Basis for 3-forms]
 	The standard basis for 3-forms on $\R^3$ is 
@@ -1690,7 +1703,7 @@ We can use Stokes's theorem to prove that every exact form is closed.
 \begin{definition}[Exterior Power]
 	Let $\mathcal M$ be a domain (more specifically a \emph{manifold}).
 	The set $\Lambda^k(\mathcal M)$ is the set of all $k$-forms on $\mathcal M$
-	and is called the \emph{$k$\textsuperscript{th} exterior power of $\mathcal M$}\index{exterior power}.
+	and is called the \emph{$k$th exterior power of $\mathcal M$}\index{exterior power}.
 \end{definition}
 
 Using our new notation, we can say things like $\dd:\Lambda^k(\mathcal M)\to \Lambda^{k+1}(\mathcal M)$.
@@ -1717,49 +1730,4 @@ If we take $\mathcal M=\R^3$ then we have the explicit exact chain
 	\Lambda^{3}(\R^3)\xrightarrow{\dd}  0.
 \]
 Further, by Poincar\'e's lemma, the range of $\dd$ is exactly the kernel of the next $\dd$.
-This sets our baseline.  Now, consider the space $H=\R^3\backslash\Set{\alpha\xhat\given\alpha\in\R}$
-consisting of $\R^3$ without the $z$-axis.  We have a very similar chain.
-\[
-	\Lambda^0  (H) \xrightarrow{\dd}
-	\Lambda^1  (H)\xrightarrow{\dd} 
-	\Lambda^{2}(H)\xrightarrow{\dd}  
-	\Lambda^{3}(H)\xrightarrow{\dd}  0
-\]
-Except, this time the range of $\dd$ applied to 0-forms does not equal the kernel
-of $\dd$ applied to 1-forms.  This is because there are now covector fields
-that circulate around the $z$-axis but still have ``zero curl.''  We won't prove it, but
-the image of 1-forms under $\dd$, in this case, is kernel of $\dd$ applied to 2-forms.
-This somehow means that some interesting curves fit into $H$, but no interesting surfaces.
-The interesting curves are those that circle around the $z$-axis!
-
-We could play this game again.  Let $S=\R^3\backslash\Set{\vec 0}$.  Now we have
-a chain
-\[
-	\Lambda^0  (S) \xrightarrow{\dd}
-	\Lambda^1  (S)\xrightarrow{\dd} 
-	\Lambda^{2}(S)\xrightarrow{\dd}  
-	\Lambda^{3}(S)\xrightarrow{\dd}  0.
-\]
-In this chain the image of $\dd$ applied to 0-forms is the kernel of $\dd$ applied to 1-forms.
-However, the image of $\dd$ applied to 1-forms is \emph{not} the kernel of $\dd$ applied to
-2-forms.  Fox example, consider
-\[
-	\vec F(x,y,z) = \frac{1}{(x^2+y^2+z^2)^{3/2}}\mat{x\\y\\z},
-\]
-which you may recognize as related the force due to gravity of a point-mass centered
-at the origin acting on a particle at position $(x,y,z)$.  $\nabla \cdot \vec F=0$,
-but $\vec F$ cannot be the curl of any vector field. Thus, $\bm f=\star \Transu\vec F$ is a
-2-form in the kernel of $\dd$ but not the image of any 1-form under $\dd$.  This would be very
-hard to show directly from equations, but easy to show with Stokes's theorem.  After all,
-$\dd \bm f=0$ is an easy computation\footnote{
-	If you've ever done the computation to show that gravity acting on a sphere is
-	equivalent to gravity acting on a point-mass at the center of the sphere, then
-	you've done this computation.  
-}, but the integral of $\bm f$ around a sphere centered at
-the origin and oriented outwards is clearly positive---all vectors coming from $\vec F$ point
-radially and symmetrically outwards!
-
-Based on these observations,
-we conclude that $S$ cannot contain any loops that are more interesting than those in $\R^3$, but
-it can contain surfaces that are more interesting.  What are the interesting surfaces?  The ones
-that enclose the origin!
+This says that 
